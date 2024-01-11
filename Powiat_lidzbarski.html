@@ -1,0 +1,71 @@
+<html>
+    <head>
+        <title>Mapa powiatu lidzbarskiego</title>
+        <link rel = "stylesheet" href = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"/>
+        <script src = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+        <style> h3 {text-align: center;} </style>
+    </head>
+    <body>
+        <h3>Mapa poglądowa wizualizacji</h3>
+        <h3>Bazy Danych Obiektów Topograficznych w skali 1 : 10 000<h3>
+        <h3>dla powiatu lidzbarskiego</h3>
+        <div id="mapa" style="width:1200px;height:700px;border-style:solid;display:block;margin-left:auto;margin-right:auto;"></div>
+        <script>
+            var ADJA_A = L.tileLayer.wms('http://localhost:8080/geoserver/wms', {
+            layers: "Powiat_lidzbarski:PL.PZGiK.341.2809__OT_ADJA_A",
+            format: 'image/png',
+            transparent: false
+            });
+            
+            var BUBD_A = L.tileLayer.wms('http://localhost:8080/geoserver/wms', {
+            layers: "Powiat_lidzbarski:PL.PZGiK.341.2809__OT_BUBD_A",
+            format: 'image/png',
+            transparent: true
+            });
+
+            var PTWP_A = L.tileLayer.wms('http://localhost:8080/geoserver/wms', {
+            layers: "Powiat_lidzbarski:PL.PZGiK.341.2809__OT_PTWP_A",
+            format: 'image/png',
+            transparent: true
+            });
+
+            var SKJZ_L = L.tileLayer.wms('http://localhost:8080/geoserver/wms', {
+            layers: "Powiat_lidzbarski:PL.PZGiK.341.2809__OT_SKJZ_L",
+            format: 'image/png',
+            transparent: true
+            });
+
+            var SKRP_L = L.tileLayer.wms('http://localhost:8080/geoserver/wms', {
+            layers: "Powiat_lidzbarski:PL.PZGiK.341.2809__OT_SKRP_L",
+            format: 'image/png',
+            transparent: true
+            });
+
+            var SWRS_L = L.tileLayer.wms('http://localhost:8080/geoserver/wms', {
+            layers: "Powiat_lidzbarski:PL.PZGiK.341.2809__OT_SWRS_L",
+            format: 'image/png',
+            transparent: true
+            });
+
+            var map = L.map('mapa', {
+            center: [54.141761298595235, 20.379301138285765],
+            zoom: 10,
+            layers: [ADJA_A, BUBD_A, PTWP_A, SKJZ_L, SKRP_L, SWRS_L]
+            });
+
+            var baseMaps = {
+            "Jednostki podziału administracyjnego": ADJA_A,
+            "Budynki": BUBD_A,
+            "Wody powierzchniowe": PTWP_A,
+            "Jezdnie": SKJZ_L,
+            "Ciąg ruchu pieszego i rowerowego": SKRP_L,
+            "Rzeki i strumienie": SWRS_L
+            };      
+
+            var layerControl = L.control.layers(null, baseMaps).addTo(map);
+
+            L.control.scale().addTo(map);
+
+        </script>
+    </body>
+</html>
